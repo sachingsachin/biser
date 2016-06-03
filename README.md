@@ -1,10 +1,12 @@
-# YASER
-Yet Another SERialization format
+# BISER
+
+BISER is a BInary SERialization format
+
 
 ## Goals
 
 There are several serialization problems which have a varying degree of support in other formats.
-YASER aims to handle those serialization problems from the beginning:
+BISER aims to handle those serialization problems from the beginning:
 
 1. Circular references
 2. Maps
@@ -28,7 +30,7 @@ For non-primitives, we just need to preserve the structure somehow so that it ca
 
 
 
-## Primitives
+## Data-type indicators for primitives
 
 1. Null
   
@@ -62,7 +64,7 @@ For non-primitives, we just need to preserve the structure somehow so that it ca
 
 
 
-## Non-primtives
+## Data-type indicators for non-primtives
 
 5. Arrays
 
@@ -115,6 +117,17 @@ class Address {
     Integer zipCode;
 }
 ```
+
+The **addr** field can be null or non-null.
+If it is null, the data-type indicator for that would be 00.
+If it is non-null, then the data-type indicator for that would be 12.
+
+
+## Schema evolution
+
+If old schema and new schema are both present during deserialization, then one can deserialize using the older schema
+and then map the properties by name to the new schema.
+It can also accept a schema-transformer object to do the transformation between old and new schemas.
 
 
 
